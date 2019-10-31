@@ -1,0 +1,2 @@
+pip3 install moviepy
+pip3 install youtube_dl
