@@ -1,4 +1,5 @@
 from moviepy.editor import *
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 class Video:
   def __init__(self, name,path):
@@ -28,8 +29,10 @@ class Video:
     hasRest = isinstance((video.duration/30), int)
 
     for i in range(times):
-      video = VideoFileClip(self._path).subclip(initTime, finalTime)
-      video.write_videofile("./cutted/"+self._name+"-"+str(i)+".mp4")
+      # video = VideoFileClip(self._path).subclip(initTime, finalTime)
+      # video.write_videofile("./cutted/"+self._name+"-"+str(i)+".mp4")
+      ffmpeg_extract_subclip(self._path, initTime, finalTime, targetname="./cutted/"+self._name+"-"+str(i)+".mp4")
+
 
       initTime += 30
       finalTime +=30
@@ -41,6 +44,7 @@ class Video:
       initTimeRest = times * 30
       finalTimeRest = initTimeRest + rest
 
-      video = VideoFileClip(self._path).subclip(initTimeRest, finalTimeRest)
-      video.write_videofile("./cutted/"+self._name+"-"+str(times)+".mp4")
+      # video = VideoFileClip(self._path).subclip(initTimeRest, finalTimeRest)
+      # video.write_videofile("./cutted/"+self._name+"-"+str(times)+".mp4")
+      ffmpeg_extract_subclip(self._path, initTimeRest, finalTimeRest, targetname="./cutted/"+self._name+"-"+str(times)+".mp4")
   
